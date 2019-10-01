@@ -1,6 +1,7 @@
 [submodule "home/.zprezto"]
 	path = home/.zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+	ignore = dirty
 [submodule "home/Util/z.lua"]
 	path = home/Util/z.lua
 	url = https://github.com/skywind3000/z.lua.git
