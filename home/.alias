@@ -501,7 +501,15 @@ gr() {
   cut -d$'\t' -f1
 }
 
-# byteme {{{1
-# TODO(zq7)
+# misc {{{1
 alias cls='clear && tmux clear-history'
 alias prc='proxychains'
+alias path='echo $PATH'
+alias ppath='echo $PYTHONPATH'
+
+# z.lua {{{1
+alias zz='z -i'
+
+# byteme {{{1
+export ALGO="$HOME/Code/byteme"
+
