@@ -41,6 +41,7 @@ if [[ $UNAME == Linux ]]; then
 else
   alias rm='rm -v'
 fi
+alias rmd='rm -r'
 alias dmesg='dmesg -H || dmesg | less'
 alias du='du -h'
 alias free='free -m'
