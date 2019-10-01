@@ -1,0 +1,42 @@
+[submodule "home/.zprezto"]
+	path = home/.zprezto
+	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "home/Util/z.lua"]
+	path = home/Util/z.lua
+	url = https://github.com/skywind3000/z.lua.git
+[submodule "home/.tmux/plugins/tpm"]
+	path = home/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "home/.tmux/plugins/tmux-current-pane-hostname"]
+	path = home/.tmux/plugins/tmux-current-pane-hostname
+	url = https://git::@github.com/soyuka/tmux-current-pane-hostname
+[submodule "home/.tmux/plugins/tmux-battery"]
+	path = home/.tmux/plugins/tmux-battery
+	url = https://git::@github.com/tmux-plugins/tmux-battery
+[submodule "home/.tmux/plugins/tmux-prefix-highlight"]
+	path = home/.tmux/plugins/tmux-prefix-highlight
+	url = https://git::@github.com/tmux-plugins/tmux-prefix-highlight
+[submodule "home/.tmux/plugins/tmux-online-status"]
+	path = home/.tmux/plugins/tmux-online-status
+	url = https://git::@github.com/tmux-plugins/tmux-online-status
+[submodule "home/.tmux/plugins/tmux-sidebar"]
+	path = home/.tmux/plugins/tmux-sidebar
+	url = https://git::@github.com/tmux-plugins/tmux-sidebar
+[submodule "home/.tmux/plugins/tmux-copycat"]
+	path = home/.tmux/plugins/tmux-copycat
+	url = https://git::@github.com/tmux-plugins/tmux-copycat
+[submodule "home/.tmux/plugins/tmux-sensible"]
+	path = home/.tmux/plugins/tmux-sensible
+	url = https://git::@github.com/tmux-plugins/tmux-sensible
+[submodule "home/.tmux/plugins/tmux-open"]
+	path = home/.tmux/plugins/tmux-open
+	url = https://git::@github.com/tmux-plugins/tmux-open
+[submodule "home/.tmux/plugins/tmux-resurrect"]
+	path = home/.tmux/plugins/tmux-resurrect
+	url = https://git::@github.com/tmux-plugins/tmux-resurrect
+[submodule "home/.tmux/plugins/tmux-continuum"]
+	path = home/.tmux/plugins/tmux-continuum
+	url = https://git::@github.com/tmux-plugins/tmux-continuum
+[submodule "home/.tmux/plugins/tmux-yank"]
+	path = home/.tmux/plugins/tmux-yank
+	url = https://git::@github.com/tmux-plugins/tmux-yank

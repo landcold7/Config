@@ -1,0 +1,68 @@
+pane	__noop	1	:zsh	1	:*	1	:/Users/jche/Config/home/.tmux	1	zsh	:-zsh
+pane	algo	1	:cf	0	:-	1	:/Users/jche/Code/byteme	1	zsh	:-zsh
+pane	algo	2	:byte	0	:	1	:/Users/jche/Code/byteme/third_party/bytedump	1	node	:npm  
+-zsh
+pane	algo	2	:byte	0	:	2	:/Users/jche/Code/byteme/third_party/bytedump	0	zsh	:-zsh
+pane	algo	3	:uva	0	:	1	:/Users/jche/Code/byteme/uva/231	1	zsh	:-zsh
+pane	algo	3	:uva	0	:	2	:/Users/jche/Code/byteme	0	zsh	:-zsh
+pane	algo	4	:ipython	0	:	1	:/Users/jche/Code/byteme/test	1	Python	:/usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/Resources/Python.app/Contents/MacOS/Python /usr/local/bin/ipython
+-zsh
+pane	algo	5	:gcj	0	:	1	:/Users/jche/Code/byteme/codejam/2019/round-d/b-rev	0	zsh	:-zsh
+pane	algo	5	:gcj	0	:	2	:/Users/jche/Code/byteme/codejam/2019	1	zsh	:-zsh
+pane	algo	6	:atcoder	0	:	1	:/Users/jche/Code/byteme/atcoder/abc141/c	1	zsh	:-zsh
+pane	algo	7	:zsh	1	:*	1	:/Users/jche/Config/home/.tmux	1	bash	:bash .tmux/install.sh
+-zsh
+pane	algo	8	:libyteme	0	:	1	:/Users/jche/Code/byteme/third_party/libyteme	1	zsh	:-zsh
+pane	algo	8	:libyteme	0	:	2	:/Users/jche/Code/byteme	0	zsh	:-zsh
+pane	beancount	1	:zsh	1	:*	1	:/Users/jche/Code/beancount	1	zsh	:-zsh
+pane	blog	1	:blog	0	:-	1	:/Users/jche/Code/Blog	0	zsh	:-zsh
+pane	blog	1	:blog	0	:-	2	:/Users/jche/Code/Blog	1	zsh	:-zsh
+pane	blog	2	:work	1	:*	1	:/Users/jche/Code/Blog/content/post	0	zsh	:-zsh
+pane	blog	2	:work	1	:*	2	:/Users/jche/Code/Blog/content/media/post	0	zsh	:-zsh
+pane	blog	2	:work	1	:*	3	:/Users/jche/Code/Blog	1	zsh	:-zsh
+pane	blog	3	:life	0	:	1	:/Users/jche/Code/Blog/content/life	0	zsh	:-zsh
+pane	blog	3	:life	0	:	2	:/Users/jche/Code/Blog/content/media/life/managing-oneself-asset	0	zsh	:-zsh
+pane	blog	3	:life	0	:	3	:/Users/jche/Code/Blog	1	zsh	:-zsh
+pane	ctf	1	:zsh	1	:*	1	:/Users/jche/Code/byteme	0	zsh	:-zsh
+pane	ctf	1	:zsh	1	:*	2	:/Users/jche	1	zsh	:-zsh
+pane	ctf	2	:zsh	0	:-	1	:/Users/jche/.dotfiles	1	zsh	:-zsh
+pane	ctf	3	:zsh	0	:	1	:/Users/jche/Code/tvm	1	zsh	:-zsh
+pane	cv	1	:cv	1	:*	1	:/Users/jche/Code/cv/resume-zh_CN	1	zsh	:-zsh
+pane	cv	2	:zsh	0	:-	1	:/Users/jche/Code	1	zsh	:-zsh
+pane	flow	1	:~	0	:-	1	:/Users/jche/Code/flow	0	zsh	:-zsh
+pane	flow	1	:~	0	:-	2	:/Users/jche/Code/flow	1	zsh	:-zsh
+pane	flow	2	:~/Code	1	:*	1	:/Users/jche/Code/flow	1	zsh	:-zsh
+pane	flow	3	:zsh	0	:	1	:/Users/jche/Code/caffe	1	zsh	:-zsh
+pane	notes	1	:zsh	1	:*	1	:/Users/jche/Notes/defense	1	zsh	:-zsh
+pane	test	4	:zsh	1	:*	1	:/Users/jche/Code/dbg-macro	1	zsh	:-zsh
+pane	tvm	1	:tvm	1	:*	1	:/Users/jche/Code/tvm	1	zsh	:-zsh
+pane	tvm	1	:tvm	1	:*	2	:/Users/jche/Code/tvm	0	zsh	:-zsh
+pane	tvm	3	:zsh	0	:-	1	:/Users/jche/Code/tvm	1	zsh	:-zsh
+pane	tvm	4	:zsh	0	:	1	:/Users/jche/Notes/defense/ucasproposal	1	zsh	:-zsh
+window	__noop	1	1	:*	5965,80x24,0,0,54
+window	algo	1	0	:-	d7d4,115x31,0,0,44
+window	algo	2	0	:	c1d5,69x36,0,0[69x27,0,0,3,69x8,0,28,4]
+window	algo	3	0	:	c1e6,69x36,0,0[69x27,0,0,5,69x8,0,28,6]
+window	algo	4	0	:	c064,69x36,0,0,7
+window	algo	5	0	:	7e82,69x36,0,0[69x7,0,0,8,69x28,0,8,9]
+window	algo	6	0	:	605f,69x36,0,0,10
+window	algo	7	1	:*	57d3,115x31,0,0,52
+window	algo	8	0	:	ac41,76x31,0,0[76x29,0,0,14,76x1,0,30,42]
+window	beancount	1	1	:*	6066,69x36,0,0,17
+window	blog	1	0	:-	632f,69x36,0,0[69x26,0,0,18,69x9,0,27,19]
+window	blog	2	1	:*	1172,69x36,0,0[69x12,0,0,20,69x15,0,13,21,69x7,0,29,22]
+window	blog	3	0	:	ee31,69x36,0,0[69x16,0,0,23,69x10,0,17,24,69x8,0,28,25]
+window	ctf	1	1	:*	62dc,69x36,0,0[69x19,0,0,26,69x16,0,20,27]
+window	ctf	2	0	:-	e067,69x36,0,0,28
+window	ctf	3	0	:	e068,69x36,0,0,29
+window	cv	1	1	:*	6060,69x36,0,0,30
+window	cv	2	0	:-	6061,69x36,0,0,31
+window	flow	1	0	:-	1219,69x36,0,0[69x28,0,0,32,69x7,0,29,33]
+window	flow	2	1	:*	5aa4,62x34,0,0,34
+window	flow	3	0	:	6065,69x36,0,0,35
+window	notes	1	1	:*	6066,69x36,0,0,36
+window	test	4	1	:*	58a7,62x33,0,0,37
+window	tvm	1	1	:*	98d0,115x31,0,0[115x22,0,0,38,115x8,0,23,39]
+window	tvm	3	0	:-	e060,69x36,0,0,40
+window	tvm	4	0	:	e061,69x36,0,0,41
+state	algo	tvm
