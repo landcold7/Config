@@ -43,6 +43,8 @@ function preexec {
 }
 
 # https://unix.stackexchange.com/questions/90772/first-characters-of-the-command-repeated-in-the-display-when-completing
+export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 
