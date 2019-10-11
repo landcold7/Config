@@ -102,7 +102,9 @@
 [url "git://github.com/"]
   insteadOf = gh:
 [core]
-	quotePath = false
+  quotePath = false
+  editor = 'vim' --wait
+
 [http]
         #proxy = http://192.168.8.2:3128
         #proxy = http://192.168.7.85:3128

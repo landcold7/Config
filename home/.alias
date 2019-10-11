@@ -27,7 +27,7 @@ alias o=xdg-open
 alias pa=parallel
 alias pg='pgrep --full --list-full'
 alias pk='pgrep --full'
-alias psg='ps aux|grep --color=auto'
+alias psg='ps aux|grep -v grep|grep'
 alias tail='tail -n $((${LINES:-`tput lines 4>/dev/null||echo -n 12`} - 3))'
 alias which='which -a'
 alias recfg='source ~/.zshrc'
@@ -56,6 +56,7 @@ if [[ -n $ZSH_VERSION ]]; then
   alias -g S="|sort"
   alias -g X="|xargs"
   alias -g G='|egrep --color=auto'
+  alias -g GV='|egrep -v --color=auto'
   alias -g EG='|& egrep --color=auto'
   alias -g H="|head -n $(($LINES-2))"
   alias -g T="|tail -n $(($LINES-2))"
@@ -93,9 +94,11 @@ if [[ -n $ZSH_VERSION ]]; then
   #a2# Display the ten smallest files
   alias lssmall="command ls -Srl *(.oL[1,10])"
   #a2# Display the ten newest directories and ten newest .directories
-  alias lsnewdir="command ls -rthdl *(/om[1,10]) .*(D/om[1,10])"
+  alias lsnewdir="command ls -rthdl *(/om[1,10])"
+  alias lsnewdirall="command ls -rthdl *(/om[1,10]) .*(D/om[1,10])"
   #a2# Display the ten oldest directories and ten oldest .directories
-  alias lsolddir="command ls -rthdl *(/Om[1,10]) .*(D/Om[1,10])"
+  alias lsolddir="command ls -rthdl *(/Om[1,10])"
+  alias lsolddirall="command ls -rthdl *(/Om[1,10]) .*(D/Om[1,10])"
 
   # Path aliases {{{2
   hash -d d=~/Documents
@@ -558,15 +561,12 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 # misc {{{1
 alias cls='clear && tmux clear-history'
 alias prc='proxychains'
-alias path='echo $PATH'
-alias ppath='echo $PYTHONPATH'
 alias map='xargs -t -I {}'
-alias path="echo -e ${PATH//:/\\n}"
-alias ppath="echo -e ${PYTHONPATH//:/\\n}"
-alias psf='ps aux | grep -v grep | grep'
+alias path='echo -e ${PATH//:/\\n}'
+alias ppath='echo -e ${PYTHONPATH//:/\\n}'
 alias zz='z -i' # z.lua
 if [[ `uname` == Linux ]]; then alias dfs="du -h -c -d 1 . | sort -h -r"; fi
-for i ({1..10}) alias awkp$i="awk {print \$$i}"; unset i
+for i ({1..10}) alias awkp$i="awk '{print \$$i}'"; unset i
 
 # tmux {{{1
 alias tmls="tmux ls"
@@ -575,5 +575,11 @@ alias tmnew="tmux new -s"
 alias tmat="tmux a -t"
 
 # byteme {{{1
-export ALGO="$HOME/Code/byteme"
-
+export BYTETOOLS="$HOME/Code/byteme/bytetools"
+alias bs='byte-sketch'
+alias bsc='bs cmp'
+alias bsg='bs gen'
+alias bmk='byte-repl $(basename $PWD)'
+alias bdk='make DEBUG=0'
+alias bmp='bdk && make comp'
+alias bmg='make gen'
