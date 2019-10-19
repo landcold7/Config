@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -e
+# set -x
 
 exclude="\
 backup|\
-proxy.pac.coffee|\
-weechat\
+\.ssh|\
+\.vim\
 "
 
 files=($(git ls-files | egrep -v "$exclude"))
@@ -13,12 +14,11 @@ target=~
 LN_OPT=-sf
 [[ $(uname -s) == Linux ]] && LN_OPT=-sfr
 
-# Declare a associative array.
-# Newer bash has this feature.
+# Declare a associative array, Newer bash has this feature.
+# Link the whole directry instead of linking every file in this dir.
 declare -A dir
 # dir[.vim]=1
-# dir[.emacs.d/private/+my]=1
-# dir[.config/doom]=1
+dir[.tmux]=1
 
 info() {
   printf "\e[1;36m$*\e[m\n"
@@ -59,7 +59,39 @@ fix_prezto() {
       ~/.zprezto/modules/prompt/functions/prompt_sorin_setup
 }
 
+load_service() {
+  # Load all launchd services for osx.
+  if [[ $(uname -s) != Darwin ]]; then
+    info "Service: Not on osx platform" && return
+  fi
+  local SERVICE=~/Library/LaunchAgents
+  rm -f /tmp/me@*.log
+  for srv in $(ls $SERVICE/me@*.plist); do
+    action "Launchd $srv..."
+    launchctl unload -w "$srv"
+    launchctl load -w "$srv"
+  done
+}
+
+check() {
+  local ff=${f/"$1"\//}
+  local skip=
+  while : ; do
+    # Try every level of the path to see whether
+    # its already been processed before.
+    [[ ${dir[$ff]+_} ]] && skip=1
+    [[ $ff =~ / ]] || break
+    ff=${ff%/*}
+  done
+  if [[ -n $skip ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 # Loop through all keys in this dir array
+# Link the directory instead of linking every files
 for f in "${!dir[@]}"; do
   g="$target/${f/home\//}"
   mkdir -p ${g%/*}
@@ -68,6 +100,7 @@ for f in "${!dir[@]}"; do
     action "$g exists"
     continue
   fi
+  action "Linking $f"
   # Otherwise linking to this repo.
   link home/$f $g
 done
@@ -75,24 +108,21 @@ done
 # Loop through all values in this files array
 for f in ${files[@]}; do
   if [[ "$f" =~ ^home/ ]]; then
-    # If a file path starts with `home/` prefix.
-    ff=${f/home\//}
-    skip=
-    while : ; do
-      # Try every level of the path to see whether
-      # its already been processed before.
-      [[ ${dir[$ff]+_} ]] && skip=1
-      [[ $ff =~ / ]] || break
-      ff=${ff%/*}
-    done
-    [[ -n $skip ]] && continue
+  # If a file path starts with `home/` prefix.
+    if check home; then continue; fi
+    g="$target/${f/home\//}"
+
+  elif [[ "$f" =~ ^mac/ ]]; then
+  # If a file path starts with `mac/` prefix.
+    if check mac; then continue; fi
+    g="$target/${f/mac\//}"
+
   else
     # Skip other path patterns like etc/foo/bar here.
     continue
   fi
 
   info "Copying $f"
-  g="$target/${f/home\//}"
   mkdir -p ${g%/*}
   if ! [[ -L "$g" ]]; then
     # If this file exists and its not a symbolic link.
@@ -133,3 +163,4 @@ do_ssh
 do_mkdir
 do_git
 fix_prezto
+load_service
