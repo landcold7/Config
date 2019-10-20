@@ -41,3 +41,9 @@
 [submodule "home/.tmux/plugins/tmux-yank"]
 	path = home/.tmux/plugins/tmux-yank
 	url = https://git::@github.com/tmux-plugins/tmux-yank
+[submodule "home/Util/todo.txt-cli"]
+	path = home/Util/todo.txt-cli
+	url = https://github.com/todotxt/todo.txt-cli.git
+[submodule "home/.font/cascadia-code"]
+	path = home/.font/cascadia-code
+	url = https://github.com/microsoft/cascadia-code.git
