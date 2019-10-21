@@ -103,7 +103,7 @@
   insteadOf = gh:
 [core]
   quotePath = false
-  editor = 'vim' --wait
+  editor = vim
 
 [http]
         #proxy = http://192.168.8.2:3128
