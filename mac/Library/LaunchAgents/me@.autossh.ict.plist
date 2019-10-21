@@ -27,10 +27,10 @@
     </dict>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/me@autossh_ict-err.log</string>
+    <string>/tmp/me@.autossh.ict.err</string>
 
     <key>StandardOutPath</key>
-    <string>/tmp/me@autossh_ict.log</string>
+    <string>/tmp/me@.autossh.ict.log</string>
 
     <key>EnvironmentVariables</key>
     <dict>

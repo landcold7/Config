@@ -16,10 +16,10 @@
     </dict>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/me@byteme_dump-err.log</string>
+    <string>/tmp/me@.byteme.dump.err</string>
 
     <key>StandardOutPath</key>
-    <string>/tmp/me@byteme_dump.log</string>
+    <string>/tmp/me@.byteme.dump.log</string>
 
     <key>EnvironmentVariables</key>
     <dict>

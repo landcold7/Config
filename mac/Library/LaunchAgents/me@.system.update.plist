@@ -26,10 +26,10 @@
     </array>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/me@system_update-err.log</string>
+    <string>/tmp/me@.system.update.err</string>
 
     <key>StandardOutPath</key>
-    <string>/tmp/me@system_update.log</string>
+    <string>/tmp/me@.system.update.log</string>
 
     <key>EnvironmentVariables</key>
     <dict>

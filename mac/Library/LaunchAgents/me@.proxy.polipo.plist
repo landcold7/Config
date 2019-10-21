@@ -27,10 +27,10 @@
     </dict>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/me@autossh_ict-err.log</string>
+    <string>/tmp/me@.proxy.polipo.err</string>
 
     <key>StandardOutPath</key>
-    <string>/tmp/me@autossh_ict.log</string>
+    <string>/tmp/me@.proxy.polipo.log</string>
 
     <key>EnvironmentVariables</key>
     <dict>
