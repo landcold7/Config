@@ -4,7 +4,7 @@ action() {
   printf "\e[1;32m$*\e[m\n"
 }
 
-action "====Update system $(date)===="
+action "\n\n\n====Update system $(date)===="
 
 # Upgrade homebrew itself
 action "\n› brew update"
