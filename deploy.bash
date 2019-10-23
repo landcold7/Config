@@ -4,8 +4,7 @@ set -e
 
 exclude="\
 backup|\
-\.ssh|\
-\.vim\
+xxxx\
 "
 
 files=($(git ls-files | egrep -v "$exclude"))
@@ -65,7 +64,7 @@ load_service() {
     info "Service: Not on osx platform" && return
   fi
   local SERVICE=~/Library/LaunchAgents
-  rm -f /tmp/me@*.log
+  rm -f /tmp/me@*
   for srv in $(ls $SERVICE/me@*.plist); do
     action "Launchd $srv..."
     launchctl unload -w "$srv"
@@ -73,7 +72,7 @@ load_service() {
   done
 }
 
-check() {
+check_skip() {
   local ff=${f/"$1"\//}
   local skip=
   while : ; do
@@ -90,11 +89,28 @@ check() {
   fi
 }
 
+check_link() {
+# Check whether a soft link exists and doesn't point to Config repo
+  local soft="$1"
+  if [[ -L "$soft" ]]; then
+    if command -v realpath 2>&1 >/dev/null; then
+      real=$(realpath "$soft")
+      if ! echo $real | grep "Config" 2>&1 >/dev/null; then
+        warning "RMing $soft..."
+        rm -f "$soft"
+      fi
+    else
+      warning "Can not find 'realpath' command, exiting..." && exit 1
+    fi
+  fi
+}
+
 # Loop through all keys in this dir array
 # Link the directory instead of linking every files
 for f in "${!dir[@]}"; do
   g="$target/${f/home\//}"
   mkdir -p ${g%/*}
+  check_link "$g"
   if [[ -e "$g" && ! -L "$g" ]]; then
   # If this file exists and its not a symbolic link
     action "$g exists"
@@ -109,12 +125,13 @@ done
 for f in ${files[@]}; do
   if [[ "$f" =~ ^home/ ]]; then
   # If a file path starts with `home/` prefix.
-    if check home; then continue; fi
+    if check_skip home; then continue; fi
     g="$target/${f/home\//}"
 
   elif [[ "$f" =~ ^mac/ ]]; then
   # If a file path starts with `mac/` prefix.
-    if check mac; then continue; fi
+    if [[ $(uname -s) != Darwin ]]; then continue; fi
+    if check_skip mac; then continue; fi
     g="$target/${f/mac\//}"
 
   else
@@ -124,6 +141,7 @@ for f in ${files[@]}; do
 
   info "Copying $f"
   mkdir -p ${g%/*}
+  check_link "$g"
   if ! [[ -L "$g" ]]; then
     # If this file exists and its not a symbolic link.
     # Check whether its the same as the file we
