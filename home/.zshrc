@@ -1,5 +1,11 @@
+# set -x
+
 action() {
   printf "\e[1;32m$*\e[m\n"
+}
+
+warning() {
+  printf "\e[1;33m$*\e[m\n"
 }
 
 typeset -U path
@@ -16,19 +22,30 @@ fi
 # General aliases & functions (partially shared with bash) {{{2
 if [[ -f ~/.alias ]]; then 
   action "Setup .alias..."
+  # unalias -a
   source ~/.alias
 fi
 
 # Setup z.lua
 if [[ -d ~/Util/z.lua ]]; then
-  action "Setup z.lua..."
-  eval "$(lua ~/Util/z.lua/z.lua --init zsh once)"
+  if [[ -n "$(command -v lua)" ]]; then
+    action "Setup z.lua..."
+    eval "$($lua ~/Util/z.lua/z.lua --init zsh once)"
+  else
+    warning "No 'lua' command find when trying to setup z.lua"
+  fi
 fi
 
 # Setup fzf
 if [[ -f ~/.fzf.zsh ]]; then
   action "Setup fzf..."
   source ~/.fzf.zsh
+fi
+
+# Setup extract.zsh
+if [[ -f ~/Util/extract.zsh ]]; then
+  action "Setup extract.zsh..."
+  source ~/Util/extract.zsh
 fi
 
 # Setup a local zshrc
