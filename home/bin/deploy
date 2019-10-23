@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+CONFIG="$HOME/Config"
+cd "$CONFIG"
+./deploy.bash
