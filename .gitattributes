@@ -1,0 +1,14 @@
+# git-crypt config file
+
+secretfile filter=git-crypt diff=git-crypt
+
+# DON'T TOUCH THAT LINE AND ONE BELOW
+.gitattributes !filter !diff
+
+# Add the file you want to be encrypted like this.
+home/.todo/* filter=git-crypt diff=git-crypt
+
+# Encrypt all ssh keys
+home/.ssh/* filter=git-crypt diff=git-crypt
+
+

@@ -1,0 +1,9 @@
+*.pyc
+__pycache__
+
+# Ignore all tmux stuff
+*/.tmux/resurrect/*
+
+# Ignore all npm modules maybe
+**/node_modules/**
+
