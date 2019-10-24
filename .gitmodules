@@ -47,3 +47,7 @@
 [submodule "home/.font/cascadia-code"]
 	path = home/.font/cascadia-code
 	url = https://github.com/microsoft/cascadia-code.git
+[submodule "home/.tmux/plugins/tmux-url-select"]
+	path = home/.tmux/plugins/tmux-url-select
+	url = https://github.com/dequis/tmux-url-select.git
+	ignore = dirty
