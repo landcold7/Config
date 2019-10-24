@@ -190,7 +190,7 @@ for f in ${files[@]}; do
         fi
       fi
     fi
-    # link "$f" "$g"
+    link "$f" "$g"
   fi
 done
 
