@@ -4,7 +4,7 @@ set -e
 
 exclude="\
 backup|\
-xxxx\
+.tmux\
 "
 
 files=($(git ls-files | egrep -v "$exclude"))
@@ -52,10 +52,17 @@ do_git() {
   git submodule update --init --recursive
 }
 
-fix_prezto() {
+fix_platform() {
+  # fix prezto
   # By default, this `✘` special sign casues ugly alignment problem.
   sed -i.bak 's/local show_return="✘ "/local show_return="x "/g' \
       ~/.zprezto/modules/prompt/functions/prompt_sorin_setup
+
+  # fix tmux plugin according to os
+  if [[ $(uname -s) == Darwin ]]; then
+    sed -i.bak 's/xdg-open/open/g' \
+      ~/.tmux/plugins/tmux-url-select/tmux-url-select.pl
+  fi
 }
 
 load_service() {
@@ -97,7 +104,10 @@ check_link() {
       real=$(realpath "$soft")
       if ! echo $real | grep "Config" 2>&1 >/dev/null; then
         warning "RMing $soft..."
-        rm -f "$soft"
+        rm -f "$soft" && return 0
+      else
+        # Already linked before.
+        return 1
       fi
     else
       warning "Can not find 'realpath' command, exiting..." && exit 1
@@ -110,10 +120,13 @@ check_link() {
 for f in "${!dir[@]}"; do
   g="$target/${f/home\//}"
   mkdir -p ${g%/*}
-  check_link "$g"
   if [[ -e "$g" && ! -L "$g" ]]; then
   # If this file exists and its not a symbolic link
     action "$g exists"
+    continue
+  elif ! check_link "$g"; then
+  # Check whther we have already linked this before.
+    warning "Linked $g"
     continue
   fi
   action "Linking $f"
@@ -139,10 +152,14 @@ for f in ${files[@]}; do
     continue
   fi
 
+  if ! check_link "$g"; then
+    warning "Linked $g"
+    continue
+  fi
+
   info "Copying $f"
   mkdir -p ${g%/*}
-  check_link "$g"
-  if ! [[ -L "$g" ]]; then
+  if [[ -L "$g" ]]; then
     # If this file exists and its not a symbolic link.
     # Check whether its the same as the file we
     # about to link to.
@@ -180,5 +197,5 @@ done
 do_ssh
 do_mkdir
 do_git
-fix_prezto
+fix_platform
 load_service
