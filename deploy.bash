@@ -154,12 +154,12 @@ for f in ${files[@]}; do
 
   if ! check_link "$g"; then
     warning "Linked $g"
-    continue
+  else 
+    info "Copying $f"
   fi
 
-  info "Copying $f"
   mkdir -p ${g%/*}
-  if [[ -L "$g" ]]; then
+  if ! [[ -L "$g" ]]; then
     # If this file exists and its not a symbolic link.
     # Check whether its the same as the file we
     # about to link to.
@@ -190,7 +190,7 @@ for f in ${files[@]}; do
         fi
       fi
     fi
-    link "$f" "$g"
+    # link "$f" "$g"
   fi
 done
 
