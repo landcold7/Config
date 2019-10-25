@@ -52,3 +52,6 @@
 	path = home/.tmux/plugins/tmux-url-select
 	url = https://github.com/dequis/tmux-url-select.git
 	ignore = dirty
+[submodule "home/Util/forgit"]
+	path = home/Util/forgit
+	url = https://github.com/wfxr/forgit.git
