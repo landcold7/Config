@@ -18,6 +18,8 @@ LN_OPT=-sf
 declare -A dir
 # dir[.vim]=1
 dir[.tmux]=1
+dir[.todo.actions.d]=1
+dir[.todo]=1G
 
 info() {
   printf "\e[1;36m$*\e[m\n"
@@ -115,87 +117,100 @@ check_link() {
   fi
 }
 
-# Loop through all keys in this dir array
-# Link the directory instead of linking every files
-for f in "${!dir[@]}"; do
-  g="$target/${f/home\//}"
-  mkdir -p ${g%/*}
-  if [[ -e "$g" && ! -L "$g" ]]; then
-  # If this file exists and its not a symbolic link
-    action "$g exists"
-    continue
-  elif ! check_link "$g"; then
-  # Check whther we have already linked this before.
-    warning "Linked $g"
-    continue
-  fi
-  action "Linking $f"
-  # Otherwise linking to this repo.
-  link home/$f $g
-done
-
-# Loop through all values in this files array
-for f in ${files[@]}; do
-  if [[ "$f" =~ ^home/ ]]; then
-  # If a file path starts with `home/` prefix.
-    if check_skip home; then continue; fi
+deploy () {
+  # Loop through all keys in this dir array
+  # Link the directory instead of linking every files
+  for f in "${!dir[@]}"; do
     g="$target/${f/home\//}"
+    any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
+    if [[ -n "$any" && -L $any ]]; then
+      warning "Linked $g, rm for Dink"
+      rm -fdr "$g"
+    fi
+    if [[ -e "$g" && ! -L "$g" ]]; then
+    # If this file exists and is not a symbolic link
+      action "$g exists"
+      continue
+    elif ! check_link "$g"; then
+    # Check whther we have already linked this before.
+      warning "Dinked $g"
+      continue
+    fi
+    mkdir -p ${g%/*}
+    info "Dinking $f"
+    action "Dinking $f"
+    # Otherwise linking to this repo.
+    link home/$f $g
+  done
 
-  elif [[ "$f" =~ ^mac/ ]]; then
-  # If a file path starts with `mac/` prefix.
-    if [[ $(uname -s) != Darwin ]]; then continue; fi
-    if check_skip mac; then continue; fi
-    g="$target/${f/mac\//}"
+  # Loop through all values in this files array
+  for f in ${files[@]}; do
+    if [[ "$f" =~ ^home/ ]]; then
+    # If a file path starts with `home/` prefix.
+      if check_skip home; then continue; fi
+      g="$target/${f/home\//}"
 
-  else
-    # Skip other path patterns like etc/foo/bar here.
-    continue
-  fi
+    elif [[ "$f" =~ ^mac/ ]]; then
+    # If a file path starts with `mac/` prefix.
+      if [[ $(uname -s) != Darwin ]]; then continue; fi
+      if check_skip mac; then continue; fi
+      g="$target/${f/mac\//}"
 
-  if ! check_link "$g"; then
-    warning "Linked $g"
-  else 
-    info "Copying $f"
-  fi
+    else
+      # Skip other path patterns like etc/foo/bar here.
+      continue
+    fi
 
-  mkdir -p ${g%/*}
-  if ! [[ -L "$g" ]]; then
-    # If this file exists and its not a symbolic link.
-    # Check whether its the same as the file we
-    # about to link to.
-    if [[ -f "$g" || "$f" -ot "$g" ]]; then
-      if diff -q "$f" "$g"; then
-        action "identical $g"
-        continue
-      else
-        diff -u "$g" "$f" | less -FMX
-        while :; do
-          warning "Overwrite $g ?\n(y)es (n)skip (m)vim -d (q)uit [y/n/m/q]"
-          read -rsn 1 option
-          case $option in
-            [ny])
-              break;;
-            m)
-              vim -d "$g" "$f";;
-            q)
-              exit;;
-            *)
-              # While forever until getting a valid option.
-              continue;;
-          esac
-        done
-        if [[ $option == n ]]; then
-          action "skipping $g"
+    if ! check_link "$g"; then
+      warning "Linked $g"
+    else 
+      info "Copying $f"
+    fi
+
+    mkdir -p ${g%/*}
+    if ! [[ -L "$g" ]]; then
+      # If this file exists and its not a symbolic link.
+      # Check whether its the same as the file we
+      # about to link to.
+      if [[ -f "$g" || "$f" -ot "$g" ]]; then
+        if diff -q "$f" "$g"; then
+          action "identical $g"
           continue
+        else
+          diff -u "$g" "$f" | less -FMX
+          while :; do
+            warning "Overwrite $g ?\n(y)es (n)skip (m)vim -d (q)uit [y/n/m/q]"
+            read -rsn 1 option
+            case $option in
+              [ny])
+                break;;
+              m)
+                vim -d "$g" "$f";;
+              q)
+                exit;;
+              *)
+                # While forever until getting a valid option.
+                continue;;
+            esac
+          done
+          if [[ $option == n ]]; then
+            action "skipping $g"
+            continue
+          fi
         fi
       fi
+      link "$f" "$g"
     fi
-    link "$f" "$g"
-  fi
-done
+  done
+}
 
-do_ssh
-do_mkdir
-do_git
-fix_platform
-load_service
+main() {
+  deploy
+  do_ssh
+  do_mkdir
+  # fix_platform
+  # do_git
+  # load_service
+}
+
+main
