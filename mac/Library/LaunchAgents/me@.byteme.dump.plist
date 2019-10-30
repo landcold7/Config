@@ -16,7 +16,7 @@
     </dict>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/me@.byteme.dump.err</string>
+    <string>/tmp/me@.byteme.dump.log</string>
 
     <key>StandardOutPath</key>
     <string>/tmp/me@.byteme.dump.log</string>

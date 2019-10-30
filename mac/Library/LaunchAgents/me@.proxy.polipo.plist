@@ -27,7 +27,7 @@
     </dict>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/me@.proxy.polipo.err</string>
+    <string>/tmp/me@.proxy.polipo.log</string>
 
     <key>StandardOutPath</key>
     <string>/tmp/me@.proxy.polipo.log</string>

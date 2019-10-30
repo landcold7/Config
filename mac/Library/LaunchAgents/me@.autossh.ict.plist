@@ -27,7 +27,7 @@
     </dict>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/me@.autossh.ict.err</string>
+    <string>/tmp/me@.autossh.ict.log</string>
 
     <key>StandardOutPath</key>
     <string>/tmp/me@.autossh.ict.log</string>
