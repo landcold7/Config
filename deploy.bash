@@ -19,7 +19,7 @@ declare -A dir
 # dir[.vim]=1
 dir[.tmux]=1
 dir[.todo.actions.d]=1
-dir[.todo]=1G
+dir[.todo]=1
 
 info() {
   printf "\e[1;36m$*\e[m\n"
@@ -122,10 +122,12 @@ deploy () {
   # Link the directory instead of linking every files
   for f in "${!dir[@]}"; do
     g="$target/${f/home\//}"
-    any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
-    if [[ -n "$any" && -L $any ]]; then
-      warning "Linked $g, rm for Dink"
-      rm -fdr "$g"
+    if [[ -e "$g" ]]; then
+      any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
+      if [[ -n "$any" && -L $any ]]; then
+        warning "Linked $g, rm for Dink"
+        rm -fdr "$g"
+      fi
     fi
     if [[ -e "$g" && ! -L "$g" ]]; then
     # If this file exists and is not a symbolic link
@@ -208,9 +210,9 @@ main() {
   deploy
   do_ssh
   do_mkdir
-  # fix_platform
-  # do_git
-  # load_service
+  fix_platform
+  do_git
+  load_service
 }
 
 main
