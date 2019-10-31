@@ -1,0 +1,24 @@
+# Show how to use gpg.
+gpg --full-generate-key
+
+gpg --list-secret-keys --keyid-format LONG
+
+gpg --fingerprint landcold7@gmail.com
+---------------------------------------------------------------
+pub   rsa2048 2019-10-22 [SC]
+      A1DF F257 499C B3BC DFE2  49E4 C305 AB1A 1E48 10D6
+uid           [ultimate]  (first gpg key) <landcold7@gmail.com>
+sub   rsa2048 2019-10-22 [E]
+---------------------------------------------------------------
+
+# Note: key ID is 1E4810D6 get from fingerprint. 
+gpg --send-key 1E4810D6
+
+# Recv key from another computer
+gpg --recv-key 1E4810D6
+
+# https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key
+
+# https://www.gnupg.org/gph/en/manual/x56.html
+
+# https://www.schibsted.pl/blog/securing-data-with-git-crypt/
