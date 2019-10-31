@@ -122,10 +122,12 @@ deploy () {
   # Link the directory instead of linking every files
   for f in "${!dir[@]}"; do
     g="$target/${f/home\//}"
-    any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
-    if [[ -n "$any" && -L $any ]]; then
-      warning "Linked $g, rm for Dink"
-      rm -fdr "$g"
+    if [[ -e "$g" ]]; then
+      any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
+      if [[ -n "$any" && -L $any ]]; then
+        warning "Linked $g, rm for Dink"
+        rm -fdr "$g"
+      fi
     fi
     if [[ -e "$g" && ! -L "$g" ]]; then
     # If this file exists and is not a symbolic link
