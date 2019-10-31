@@ -48,6 +48,11 @@ if [[ -f ~/Util/extract.zsh ]]; then
   source ~/Util/extract.zsh
 fi
 
+if [[ -f ~/Util/forgit/forgit.plugin.zsh ]]; then
+  action "Setup fzf forgit plugin..."
+  source ~/Util/forgit/forgit.plugin.zsh
+fi
+
 # Setup a local zshrc
 if [[ -s ~/.zshrc.local ]]; then 
   action "Setup .zshrc.local..."

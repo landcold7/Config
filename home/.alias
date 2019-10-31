@@ -506,19 +506,6 @@ gr() {
 
 # osx related {{{1
 # TODO(zq7): test and clean all aliaes located here.
-update () {
-	# Get macOS Software Updates,
-	# update installed Ruby gems, Homebrew, npm, and their installed packages
-	sudo softwareupdate -i -a
-	brew update
-	brew upgrade
-	brew cleanup
-	npm install npm -g
-	npm update -g
-	sudo gem update --system
-	sudo gem update
-	sudo gem cleanup
-}
 # Google Chrome
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
@@ -616,6 +603,7 @@ shpx() {
 
 # todo.txt-cli
 alias t='todo.sh'
+alias ta='todo-add.sh'
 
 # proxychains
 alias px='proxychains -f ~/.config/proxychains.conf'
