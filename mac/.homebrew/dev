@@ -1,0 +1,48 @@
+cask_args appdir: '/Applications'
+
+tap 'homebrew/bundle'
+
+# Core
+brew 'coreutils'
+brew 'readline'
+brew 'openssl'
+brew 'ffmpeg'
+brew 'gcc'
+brew 'gdb'
+brew 'qemu'
+brew 'cmake'
+brew 'llvm', args: ['--with-toolchain']
+brew 'xiw/jos/i386-jos-elf-gcc'
+brew 'xiw/jos/i386-jos-elf-gdb'
+brew 'xiw/jos/i386-jos-elf-binutils'
+brew 'xiw/jos/i386-jos-elf-qemu'
+
+# Languages
+brew 'go'
+brew 'nasm'
+brew 'python3'
+brew 'node'
+
+# VCS
+brew 'git'
+brew 'git-annex'
+
+# Editors
+brew 'vim'
+brew 'neovim'
+brew 'sublime-text'
+cask 'mactex'
+cask 'visual-studio-code'
+
+# Services
+brew 'spark'
+brew 'postgresql'
+# brew 'redis'
+# brew 'nginx'
+# brew 'mongodb'
+
+# cask 'graphviz', args: ['--with-gts']
+cask 'docker'
+cask 'docker-toolbox'
+cask 'virtualbox'
+cask 'virtualbox-extension-pack'
