@@ -12,10 +12,10 @@ brew 'gdb'
 brew 'qemu'
 brew 'cmake'
 brew 'llvm', args: ['--with-toolchain']
-brew 'xiw/jos/i386-jos-elf-gcc'
-brew 'xiw/jos/i386-jos-elf-gdb'
-brew 'xiw/jos/i386-jos-elf-binutils'
-brew 'xiw/jos/i386-jos-elf-qemu'
+# brew 'xiw/jos/i386-jos-elf-gcc'
+# brew 'xiw/jos/i386-jos-elf-gdb'
+# brew 'xiw/jos/i386-jos-elf-binutils'
+# brew 'xiw/jos/i386-jos-elf-qemu'
 
 # Languages
 brew 'go'
@@ -44,5 +44,5 @@ brew 'postgresql'
 # cask 'graphviz', args: ['--with-gts']
 cask 'docker'
 cask 'docker-toolbox'
-cask 'virtualbox'
-cask 'virtualbox-extension-pack'
+# cask 'virtualbox'
+# cask 'virtualbox-extension-pack'

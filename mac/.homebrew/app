@@ -13,6 +13,7 @@ brew 'pdfgrep'
 brew 'feh'
 brew 'proxychains-ng'
 brew 'youtube-dl'
+brew 'mas'
 
 # Helper tools
 cask 'flux'
