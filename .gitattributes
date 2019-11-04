@@ -11,4 +11,6 @@ home/.todo/* filter=git-crypt diff=git-crypt
 # Encrypt all ssh keys
 home/.ssh/* filter=git-crypt diff=git-crypt
 
+# Encrypt .zsh_history
+home/.zsh_history
 
