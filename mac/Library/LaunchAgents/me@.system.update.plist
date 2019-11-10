@@ -7,7 +7,7 @@
     <string>me@.system.update.plist</string>
 
     <key>RunAtLoad</key>
-    <true/>
+    <false/>
 
     <!-- <key>StartInterval</key>
     <integer>20</integer> -->
@@ -17,9 +17,9 @@
     <array>
       <dict>
         <key>Hour</key>
-        <integer>3</integer>
-        <key>Minute</key>
         <integer>0</integer>
+        <key>Minute</key>
+        <integer>05</integer>
         <key>Weekday</key>
         <integer>0</integer>
       </dict>
