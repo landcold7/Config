@@ -6,3 +6,7 @@ export PROXY_SOCKS5_PORT=2088
 
 ### Some local aliases
 alias ledger='code-insiders ~/Code/beancount'
+
+### Use g++ instead of clang on osx platform
+export CC=g++
+export CXX=g++
