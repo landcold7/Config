@@ -16,3 +16,6 @@ home/.zsh_history filter=git-crypt diff=git-crypt
 
 # Encrypt landcold7.gq
 home/.landcold7.gq/* filter=git-crypt diff=git-crypt
+
+# Encrypt trojan
+home/.config/trojan.json filter=git-crypt diff=git-crypt
