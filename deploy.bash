@@ -4,7 +4,8 @@ set -e
 
 exclude="\
 backup|\
-.tmux\
+.tmux|\
+.todo\
 "
 
 files=($(git ls-files | egrep -v "$exclude"))
@@ -19,7 +20,7 @@ declare -A dir
 # dir[.vim]=1
 dir[.tmux]=1
 dir[.todo.actions.d]=1
-dir[.todo]=1G
+dir[.todo]=1
 
 info() {
   printf "\e[1;36m$*\e[m\n"
@@ -67,18 +68,39 @@ fix_platform() {
   fi
 }
 
-load_service() {
-  # Load all launchd services for osx.
-  if [[ $(uname -s) != Darwin ]]; then
-    info "Service: Not on osx platform" && return
-  fi
+launchd_service() {
+  # Serices that will run as user
   local SERVICE=~/Library/LaunchAgents
   rm -f /tmp/me@*
   for srv in $(ls $SERVICE/me@*.plist); do
-    action "Launchd $srv..."
+    action "Launchd user ($srv)..."
     launchctl unload -w "$srv"
     launchctl load -w "$srv"
   done
+  # # Serices that will run as root
+  # local SERVICE=~/Config/mac/Library/LaunchDaemons
+  # local ROOTSRV=/Library/LaunchDaemons
+  # for any in $(ls $SERVICE); do
+  #   sudo ln "$LN_OPT" "$SERVICE/$any" "$ROOTSRV/$any" 
+  # done
+  # for srv in $(ls $ROOTSRV/me@*.plist); do
+  #   action "Launchd root ($srv)..."
+  #   sudo launchctl unload -w "$srv"
+  #   sudo launchctl load -w "$srv"
+  # done
+}
+
+systemd_service() {
+  # Load all services for linux
+  info "Service: not implemented" && return 
+}
+
+load_service() {
+  if [[ $(uname -s) == Darwin ]]; then
+    launchd_service
+  else
+    systemd_service
+  fi
 }
 
 check_skip() {
@@ -210,9 +232,9 @@ main() {
   deploy
   do_ssh
   do_mkdir
-  # fix_platform
-  # do_git
-  # load_service
+  fix_platform
+  do_git
+  load_service
 }
 
 main

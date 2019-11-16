@@ -1,0 +1,47 @@
+### my gpg keys
+----------------------------------------------------------------------------
+pub   rsa2048/8EE46451 2019-11-16 [S]
+      Key fingerprint = 7721 8BF2 89BF 430C 08B9  438D C32A 6191 8EE4 6451
+uid         [ultimate] ld7-vultr (mainly for git-crypt) <landcold7@gmail.com>
+sub   rsa2048/35473758 2019-11-16 []
+----------------------------------------------------------------------------
+
+---------------------------------------------------------------
+pub   rsa2048 2019-10-22 [SC]
+      A1DF F257 499C B3BC DFE2  49E4 C305 AB1A 1E48 10D6
+uid           [ultimate]  (first gpg key) <landcold7@gmail.com>
+sub   rsa2048 2019-10-22 [E]
+---------------------------------------------------------------
+
+### usage
+
+# Show how to use gpg.
+gpg --full-gen-key
+
+gpg --list-secret-keys --keyid-format LONG
+
+gpg --fingerprint landcold7@gmail.com
+---------------------------------------------------------------
+pub   rsa2048 2019-10-22 [SC]
+      A1DF F257 499C B3BC DFE2  49E4 C305 AB1A 1E48 10D6
+uid           [ultimate]  (first gpg key) <landcold7@gmail.com>
+sub   rsa2048 2019-10-22 [E]
+---------------------------------------------------------------
+
+# Note: key ID is 1E4810D6 get from fingerprint. 
+gpg --send-key 1E4810D6
+
+# Recv key from another computer
+gpg --recv-key 1E4810D6
+
+# Check expire date
+gpg --with-colon --fixed-list-mode .gnupg/pubring.gpg
+
+# Resolve issue
+https://stackoverflow.com/questions/33361068/gnupg-there-is-no-assurance-this-key-belongs-to-the-named-user
+
+https://help.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key
+
+https://www.gnupg.org/gph/en/manual/x56.html
+
+https://www.schibsted.pl/blog/securing-data-with-git-crypt/

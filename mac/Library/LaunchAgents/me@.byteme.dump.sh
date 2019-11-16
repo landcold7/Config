@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-set -x
 set -e
+
+source ~/Util/log.sh
+log info "starting bytedump service"
+
 ALGO="/Users/jche/Code/byteme"
 BYTEDUMP="$ALGO/bytetools/byte-dump"
 if [[ ! -d "$BYTEDUMP" ]]; then

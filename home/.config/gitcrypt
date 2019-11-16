@@ -1,0 +1,19 @@
+### git-crypt usage
+# use gpg key as identity to identify indivisuals
+
+# git-crypt add-gpg-user "Any thing from gpg key ie. email address"
+# if meet error "there is no assurance this key belongs to the named user"
+
+# just `add this gpg key as trusted` using 
+# gpg --edit-key
+
+
+### git-crypt config file
+
+secretfile filter=git-crypt diff=git-crypt
+
+# DON'T TOUCH THAT LINE AND ONE BELOW
+.gitattributes !filter !diff
+
+# Add the file you want to be encrypted like this.
+*.csv filter=git-crypt diff=git-crypt

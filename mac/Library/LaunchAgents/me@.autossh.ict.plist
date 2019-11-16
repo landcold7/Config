@@ -20,11 +20,11 @@
     </dict>
 
     <!-- restart the job until it succeeds -->
-    <key>KeepAlive</key>
+    <!-- <key>KeepAlive</key>
     <dict>
       <key>SuccessfulExit</key>
       <false/>
-    </dict>
+    </dict> -->
 
     <key>StandardErrorPath</key>
     <string>/tmp/me@.autossh.ict.log</string>
