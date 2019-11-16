@@ -14,3 +14,5 @@ home/.ssh/* filter=git-crypt diff=git-crypt
 # Encrypt .zsh_history
 home/.zsh_history filter=git-crypt diff=git-crypt
 
+# Encrypt landcold7.gq
+home/.landcold7.gq/* filter=git-crypt diff=git-crypt
