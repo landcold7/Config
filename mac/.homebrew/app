@@ -31,6 +31,9 @@ cask 'evernote'
 cask 'osxfuse'
 cask 'pdfexpert'
 cask 'marta'
+cask 'wpsoffice'
+cask 'libreoffice'
+
 
 cask 'handbrake'
 cask 'obs'

@@ -73,6 +73,8 @@ launchd_service() {
   local SERVICE=~/Library/LaunchAgents
   rm -f /tmp/me@*
   for srv in $(ls $SERVICE/me@*.plist); do
+    srv_name=$(basename $srv)
+    if launchctl list | grep "$srv_name" >/dev/null 2>&1; then continue; fi
     action "Launchd user ($srv)..."
     launchctl unload -w "$srv"
     launchctl load -w "$srv"

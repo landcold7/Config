@@ -6,11 +6,3 @@ __pycache__
 
 # Ignore all npm modules maybe
 **/node_modules/**
-
-# Ignore todo.txt
-home/.todo/*
-
-# Ignore zsh_history
-home/.zsh_history
-
-
