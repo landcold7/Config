@@ -581,26 +581,6 @@ alias bdk='make DEBUG=0'
 alias bmp='bdk && make comp'
 alias bmg='make gen'
 
-# netwrork proxy relaed {{{1
-# using polipo converts socks5 to http and https proxies.
-hppx() {
-	export ALL_PROXY="http://127.0.0.1:$PROXY_HTTP_PORT"
-	export HTTP_PROXY="http://127.0.0.1:$PROXY_HTTP_PORT"
-	export HTTPS_PROXY="http://127.0.0.1:$PROXY_HTTP_PORT"
-}
-
-clpx() {
-	export ALL_PROXY=""
-	export HTTP_PROXY=""
-	export HTTPS_PROXY=""
-}
-
-shpx() {
-	echo "ALL_PROXY=$ALL_PROXY"
-	echo "HTTP_PROXY=$HTTP_PROXY"
-	echo "HTTPS_PROXY=$HTTPS_PROXY"
-}
-
 # todo.txt-cli
 alias t='todo.sh'
 alias ta='todo-add.sh'
