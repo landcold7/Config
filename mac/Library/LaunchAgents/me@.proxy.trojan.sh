@@ -3,7 +3,7 @@ source ~/Util/log.sh
 
 log info "starting autossh service"
 
-pkill autossh 
-if ! autossh -M 0 -f -T -N ict; then
+pkill trojan
+if ! trojan .config/trojan-client.json ; then
   exit 1
 fi

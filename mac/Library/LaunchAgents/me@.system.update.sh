@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 source ~/Util/log.sh
 
 log info "starting sysmte update service"

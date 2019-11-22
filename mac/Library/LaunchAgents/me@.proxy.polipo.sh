@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 source ~/Util/log.sh
 
 log info "starting polipo service"
