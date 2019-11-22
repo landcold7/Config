@@ -23,6 +23,8 @@ cask 'sepctacle'
 cask 'karabiner-elements'
 cask 'alfred'
 cask 'alacritty'
+cask 'gource'
+cask 'sourcetrail'
 # cask 'wine'
 
 # Documentation and file tools

@@ -12,6 +12,7 @@ brew 'gdb'
 brew 'qemu'
 brew 'cmake'
 brew 'llvm', args: ['--with-toolchain']
+brew 'ccache'
 # brew 'xiw/jos/i386-jos-elf-gcc'
 # brew 'xiw/jos/i386-jos-elf-gdb'
 # brew 'xiw/jos/i386-jos-elf-binutils'
