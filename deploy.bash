@@ -17,10 +17,13 @@ LN_OPT=-sf
 # Declare a associative array, Newer bash has this feature.
 # Link the whole directry instead of linking every file in this dir.
 declare -A dir
-# dir[.vim]=1
 dir[.tmux]=1
 dir[.todo.actions.d]=1
 dir[.todo]=1
+dir[.config]=1
+
+declare -A dir_mac
+dir_mac[Library/Rime]=1
 
 info() {
   printf "\e[1;36m$*\e[m\n"
@@ -71,7 +74,7 @@ fix_platform() {
 launchd_service() {
   # Serices that will run as user
   local SERVICE=~/Library/LaunchAgents
-  rm -f /tmp/me@*
+  # rm -f /tmp/me@*
   for srv in $(ls $SERVICE/me@*.plist); do
     srv_name=$(basename $srv)
     if launchctl list | grep "$srv_name" >/dev/null 2>&1; then continue; fi
@@ -83,7 +86,7 @@ launchd_service() {
   # local SERVICE=~/Config/mac/Library/LaunchDaemons
   # local ROOTSRV=/Library/LaunchDaemons
   # for any in $(ls $SERVICE); do
-  #   sudo ln "$LN_OPT" "$SERVICE/$any" "$ROOTSRV/$any" 
+  #   sudo ln "$LN_OPT" "$SERVICE/$any" "$ROOTSRV/$any"
   # done
   # for srv in $(ls $ROOTSRV/me@*.plist); do
   #   action "Launchd root ($srv)..."
@@ -94,7 +97,7 @@ launchd_service() {
 
 systemd_service() {
   # Load all services for linux
-  info "Service: not implemented" && return 
+  info "Service: not implemented" && return
 }
 
 load_service() {
@@ -115,6 +118,14 @@ check_skip() {
     [[ $ff =~ / ]] || break
     ff=${ff%/*}
   done
+  ff=${f/"$1"\//}
+  while : ; do
+    # Try every level of the path to see whether
+    # its already been processed before.
+    [[ ${dir_mac[$ff]+_} ]] && skip=1
+    [[ $ff =~ / ]] || break
+    ff=${ff%/*}
+  done
   if [[ -n $skip ]]; then
     return 0
   else
@@ -129,7 +140,7 @@ check_link() {
     if command -v realpath 2>&1 >/dev/null; then
       real=$(realpath "$soft")
       if ! echo $real | grep "Config" 2>&1 >/dev/null; then
-        warning "RMing $soft..."
+        warning "rming $soft..."
         rm -f "$soft" && return 0
       else
         # Already linked before.
@@ -149,6 +160,30 @@ deploy () {
     if [[ -e "$g" ]]; then
       any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
       if [[ -n "$any" && -L $any ]]; then
+        warning "Linked $g, will be removed for dink"
+        rm -fdr "$g"
+      fi
+    fi
+    if [[ -e "$g" && ! -L "$g" ]]; then
+    # If this file exists and is not a symbolic link
+      action "$g exists"
+      continue
+    elif ! check_link "$g"; then
+    # Check whther we have already linked this before.
+      warning "Dinked $g"
+      continue
+    fi
+    mkdir -p ${g%/*}
+    info "Dinking $f"
+    # Otherwise linking to this repo.
+    link home/$f $g
+  done
+
+  for f in "${!dir_mac[@]}"; do
+    g="$target/${f/mac\//}"
+    if [[ -e "$g" ]]; then
+      any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
+      if [[ -n "$any" && -L $any ]]; then
         warning "Linked $g, rm for Dink"
         rm -fdr "$g"
       fi
@@ -164,9 +199,8 @@ deploy () {
     fi
     mkdir -p ${g%/*}
     info "Dinking $f"
-    action "Dinking $f"
     # Otherwise linking to this repo.
-    link home/$f $g
+    link mac/$f $g
   done
 
   # Loop through all values in this files array
@@ -189,7 +223,7 @@ deploy () {
 
     if ! check_link "$g"; then
       warning "Linked $g"
-    else 
+    else
       info "Copying $f"
     fi
 
