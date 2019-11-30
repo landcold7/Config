@@ -19,3 +19,4 @@ home/.landcold7.gq/* filter=git-crypt diff=git-crypt
 
 # Encrypt trojan
 home/.config/trojan.json filter=git-crypt diff=git-crypt
+home/.config/trojan-client.json filter=git-crypt diff=git-crypt
