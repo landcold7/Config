@@ -5,8 +5,8 @@
     <key>Label</key>
     <string>me@.autossh.ict.plist</string>
 
-    <key>RunAtLoad</key>
-    <true/>
+    <!-- <key>RunAtLoad</key>
+    <true/> -->
 
     <!-- Always running this service no matter what -->
     <!-- <key>KeepAlive</key>
@@ -43,6 +43,6 @@
       <string>/bin/sh</string>
       <string>-c</string>
       <string>~/Library/LaunchAgents/me@.autossh.ict.sh</string>
-    </array> 
+    </array>
   </dict>
 </plist>
