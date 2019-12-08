@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+
+### launchcd usage examples:
+## start a already loeaded service
+# launchctl start me@.system.update.plist
+## load a service
+# launchctl load -w me@.system.update.plist
+
 source ~/Util/log.sh
 
 log info "starting sysmte update service"

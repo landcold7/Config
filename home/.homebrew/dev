@@ -23,15 +23,18 @@ brew 'go'
 brew 'nasm'
 brew 'python3'
 brew 'node'
+brew 'flex'
+brew 'bison'
 
 # VCS
 brew 'git'
 brew 'git-annex'
+brew 'mercurial'
 
 # Editors
 brew 'vim'
 brew 'neovim'
-brew 'sublime-text'
+cask 'sublime-text'
 cask 'mactex'
 cask 'visual-studio-code'
 
