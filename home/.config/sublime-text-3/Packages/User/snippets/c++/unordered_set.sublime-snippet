@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[
+unordered_set
+]]></content>
+    <tabTrigger>us</tabTrigger>
+    <scope>source.c++, meta.function.c++, meta.block.c++, punctuation.section.generic.end.c++</scope>
+    <description></description>
+</snippet>

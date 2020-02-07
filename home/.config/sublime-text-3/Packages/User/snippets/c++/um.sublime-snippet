@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[
+unordered_map
+]]></content>
+    <tabTrigger>um</tabTrigger>
+    <scope>source.c++</scope>
+    <description></description>
+</snippet>

@@ -1,0 +1,46 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"ActualVim",
+		"All Autocomplete",
+		"Anaconda",
+		"Beancount",
+		"BetterSnippetManager",
+		"BracketHighlighter",
+		"CMake",
+		"CMakeEditor",
+		"CppFastOlympicCoding",
+		"DashDoc",
+		"FileIcons",
+		"GitGutter",
+		"LSP",
+		"MarkdownPreview",
+		"Material Monokai",
+		"Material Theme",
+		"Monokai++",
+		"MonokaiFree",
+		"NeoVintageous",
+		"OpenBazelBUILDFile",
+		"orgmode",
+		"Origami",
+		"Package Control",
+		"PackageResourceViewer",
+		"PanePane",
+		"RainbowBrackets",
+		"RawLineEdit",
+		"SideBarEnhancements",
+		"Sourcetrail",
+		"SyncedSideBar",
+		"Tabright"
+	],
+	"repositories":
+	[
+		"https://github.com/titoBouzout/BufferScroll",
+		"https://github.com/titoBouzout/BufferScroll",
+		"https://github.com/titoBouzout/BufferScroll"
+	]
+}

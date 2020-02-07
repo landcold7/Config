@@ -1,0 +1,18 @@
+[
+  {
+    "class": "sidebar_label",
+    "color": [255, 255, 255],
+    "font.size": 13
+  },
+  {
+    "class": "label_control",
+    "parents": [{"class": "status_bar"}],
+    "color": [255, 255, 255],
+    "font.size": 13
+  },
+  {
+    "class": "tab_label",
+    "color": [255, 255, 255],
+    "font.size": 14
+  }
+]
