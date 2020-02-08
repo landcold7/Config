@@ -16,13 +16,13 @@ warning() {
 
 exclude="\
 backup|\
-.tmux|\
 .todo|\
 .config|\
 .zsh_history|\
 Library/Rime|\
 .zprezto\
 "
+# .tmux|\
 
 files=($(git ls-files | egrep -v "$exclude"))
 
@@ -102,23 +102,23 @@ fix_platform() {
   sed -i.bak 's/xdg-open/open/g' \
     ~/.tmux/plugins/tmux-url-select/tmux-url-select.pl
 
-  # fix system.update launchd service (NOTE: may bring some security riskes into system)
+  # fix system.update launchd service
+  # (NOTE: may bring some security riskes into the system)
   sudo touch /etc/sudoers.d/sys-update
-  echo "$USER ALL = NOPASSWD:SETENV: /usr/bin/xargs, /bin/rmdir, /bin/chmod, /usr/sbin/pkgutil,\
-    /usr/bin/env, /usr/bin/chown" | sudo tee /etc/sudoers.d/sys-update >/dev/null
+  echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sys-update >/dev/null
 }
 
 launchd_service() {
-  # Serices that will run as user
-  local SERVICE=~/Library/LaunchAgents
-  for srv in $(ls $SERVICE/me@*.plist); do
-    srv_name=$(basename $srv)
-    if launchctl list | grep "$srv_name" >/dev/null 2>&1; then
+  # Services that will run as user
+  local agents=~/Library/LaunchAgents
+  for agent in $(ls $agents/me@*.plist); do
+    agent_name=$(basename $agent)
+    if launchctl list | grep "$agent_name" >/dev/null 2>&1; then
       continue
     fi
-    action "Launchd user ($srv)..."
-    launchctl unload -w "$srv"
-    launchctl load -w "$srv"
+    action "Launchd user ($agent)..."
+    launchctl unload -w "$agent"
+    launchctl load -w "$agent"
   done
 }
 
