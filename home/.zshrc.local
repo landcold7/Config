@@ -1,12 +1,32 @@
 ### Environment variables {{{1
 export ALGO=$HOME/Code/byteme
 
-export PROXY_HTTP_PORT=2099
-export PROXY_SOCKS5_PORT=2088
-
 ### Some local aliases
 alias ledger='code-insiders ~/Code/beancount'
 
 ### Use g++ instead of clang on osx platform
 export CC=g++
 export CXX=g++
+
+# netwrork proxy relaed {{{1
+# using polipo converts socks5 to http and https proxies.
+export PROXY_HTTP_PORT=2099
+export PROXY_SOCKS5_PORT=4444
+
+hppx() {
+	export ALL_PROXY="http://127.0.0.1:$PROXY_HTTP_PORT"
+	export HTTP_PROXY="http://127.0.0.1:$PROXY_HTTP_PORT"
+	export HTTPS_PROXY="http://127.0.0.1:$PROXY_HTTP_PORT"
+}
+
+clpx() {
+	export ALL_PROXY=""
+	export HTTP_PROXY=""
+	export HTTPS_PROXY=""
+}
+
+shpx() {
+	echo "ALL_PROXY=$ALL_PROXY"
+	echo "HTTP_PROXY=$HTTP_PROXY"
+	echo "HTTPS_PROXY=$HTTPS_PROXY"
+}

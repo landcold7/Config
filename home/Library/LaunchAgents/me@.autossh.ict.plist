@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>me@.autossh.ict.plist</string>
+
+    <!-- <key>RunAtLoad</key>
+    <true/> -->
+
+    <!-- Always running this service no matter what -->
+    <!-- <key>KeepAlive</key>
+    <true/> -->
+
+    <!-- When it crashed, restart it again -->
+    <key>KeepAlive</key>
+    <dict>
+      <key>Crashed</key>
+      <true/>
+    </dict>
+
+    <!-- restart the job until it succeeds -->
+    <!-- <key>KeepAlive</key>
+    <dict>
+      <key>SuccessfulExit</key>
+      <false/>
+    </dict> -->
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/me@.autossh.ict.log</string>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/me@.autossh.ict.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin></string>
+    </dict>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/sh</string>
+      <string>-c</string>
+      <string>~/Library/LaunchAgents/me@.autossh.ict.sh</string>
+    </array>
+  </dict>
+</plist>

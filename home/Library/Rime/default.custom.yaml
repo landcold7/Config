@@ -1,0 +1,17 @@
+patch:
+  ascii_composer/good_old_caps_lock: noop
+  ascii_composer/switch_key:
+    Caps_Lock: noop
+    Shift_L: commit_code
+    Shift_R:  noop
+    Control_L: noop
+    Control_R: noop
+
+  schema_list:
+    - schema: double_pinyin_flypy
+    - schema: luna_pinyin
+    - schema: cangjie5
+    - schema: luna_pinyin_fluency
+    - schema: luna_pinyin_simp
+    - schema: luna_pinyin_tw
+

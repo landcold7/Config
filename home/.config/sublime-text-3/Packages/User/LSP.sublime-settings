@@ -1,0 +1,65 @@
+{
+	"auto_show_diagnostics_panel": "never",
+	"clients":
+	{
+		"ccls":
+		{
+			"command":
+			[
+				"ccls"
+			],
+			"enabled": true,
+			"initializationOptions":
+			{
+				"cacheDirectory": "/tmp/ccls"
+			},
+			"languages":
+			[
+				{
+					"languageId": "c",
+					"scopes":
+					[
+						"source.c"
+					],
+					"syntaxes":
+					[
+						"Packages/C++/C.sublime-syntax"
+					]
+				},
+				{
+					"languageId": "cpp",
+					"scopes":
+					[
+						"source.c++"
+					],
+					"syntaxes":
+					[
+						"Packages/C++/C++.sublime-syntax"
+					]
+				},
+				{
+					"languageId": "objective-c",
+					"scopes":
+					[
+						"source.objc"
+					],
+					"syntaxes":
+					[
+						"Packages/Objective-C/Objective-C.sublime-syntax"
+					]
+				},
+				{
+					"languageId": "objective-cpp",
+					"scopes":
+					[
+						"source.objc++"
+					],
+					"syntaxes":
+					[
+						"Packages/Objective-C/Objective-C++.sublime-syntax"
+					]
+				}
+			]
+		}
+	}
+}

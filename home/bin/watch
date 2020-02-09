@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+trap_repl () {
+  error "Caught ctrlc $cnt"
+  test $cnt -ge 10 && exit 124
+  cnt=$(expr $cnt + 1)
+}
+
+trap 'trap_repl' 2
+
+cmd="$1"
+while true ; do
+  clear && tmux clear-history
+  $cmd
+  echo -n "Press Enter to continue"
+  read newline
+done

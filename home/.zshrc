@@ -8,6 +8,20 @@ warning() {
   printf "\e[1;33m$*\e[m\n"
 }
 
+HISTSIZE=100000
+SAVEHIST=10000
+unsetopt flowcontrol
+setopt hist_ignore_all_dups     # when runing a command several times, only store one
+setopt hist_reduce_blanks       # reduce whitespace in history
+setopt hist_ignore_space        # do not remember commands starting with space
+setopt histfcntllock            # use F_SETLCKW
+setopt share_history            # share history among sessions
+setopt extended_history         # timestamp for each history entry
+setopt hist_verify              # reload full command when runing from history
+setopt hist_expire_dups_first   # remove dups when max size reached
+setopt inc_append_history       # append to history once executed
+setopt notify                   # report the status of backgrounds jobs immediately
+
 typeset -U path
 path=(~/bin ~/.local/bin "$path[@]")
 fpath=(~/.zsh/functions $fpath)

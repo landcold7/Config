@@ -1,0 +1,10 @@
+<snippet>
+  <content><![CDATA[
+for (int h = 0; h < ${1:count}; h++) {
+}
+]]></content>
+  <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+  <tabTrigger>forh</tabTrigger>
+  <!-- Optional: Set a scope to limit where the snippet will trigger -->
+  <scope>source.c++</scope>
+</snippet>

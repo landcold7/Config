@@ -1,0 +1,61 @@
+{
+	"always_prompt_for_file_reload": false,
+	"auto_complete": true,
+	"auto_complete_selector": true,
+	"auto_complete_triggers":
+	[
+		{
+			"characters": ".",
+			"selector": "source.python - string - comment - constant.numeric"
+		},
+		{
+			"characters": "\\",
+			"selector": "text.tex.latex"
+		}
+	],
+	"auto_match_enabled": false,
+	"bracket_outside_adjacent": false,
+	"color_scheme": "Packages/Material Monokai/MaterialMonokaiLight.tmTheme",
+	"ensure_newline_at_eof_on_save": true,
+	"font_face": "Cascadia Code",
+	"font_size": 22,
+	"fonts_list":
+	[
+		"InputMono-Light",
+		"Cascadia Code"
+	],
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Six",
+		"Vintage",
+		"Vintageous"
+	],
+	"line_padding_bottom": 0,
+	"line_padding_top": 0,
+	"match_brackets": false,
+	"match_brackets_angle": false,
+	"match_brackets_braces": false,
+	"match_brackets_content": false,
+	"match_brackets_square": false,
+	"match_only_adjacent": false,
+	"match_tags": false,
+	"neovintageous_build_version": 11100,
+	"open_files_in_new_window": false,
+	"rulers":
+	[
+		80,
+		100
+	],
+	"save_on_focus_lost": true,
+	"show_full_path": true,
+	"tab_completion": false,
+	"tab_size": 2,
+	"theme": "Default.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"vintageous_use_ctrl_keys": true,
+	"vintageous_use_super_keys": null,
+	"vintageous_use_sys_clipboard": true,
+	"word_wrap": false
+}

@@ -2,26 +2,6 @@
 set -e
 # set -x
 
-exclude="\
-backup|\
-.tmux|\
-.todo\
-"
-
-files=($(git ls-files | egrep -v "$exclude"))
-
-target=~
-LN_OPT=-sf
-[[ $(uname -s) == Linux ]] && LN_OPT=-sfr
-
-# Declare a associative array, Newer bash has this feature.
-# Link the whole directry instead of linking every file in this dir.
-declare -A dir
-# dir[.vim]=1
-dir[.tmux]=1
-dir[.todo.actions.d]=1
-dir[.todo]=1
-
 info() {
   printf "\e[1;36m$*\e[m\n"
 }
@@ -34,8 +14,64 @@ warning() {
   printf "\e[1;33m$*\e[m\n"
 }
 
-link() {
-  ln "$LN_OPT" "$PWD/$1" "$2"
+exclude="\
+backup|\
+.todo|\
+.config|\
+.zsh_history|\
+Library/Rime|\
+.zprezto\
+"
+# .tmux|\
+
+files=($(git ls-files | egrep -v "$exclude"))
+
+target=~
+LN_OPT=-sf
+[[ $(uname -s) == Linux ]] && LN_OPT=-sfr
+
+# Declare a associative array, Newer bash has this feature.
+# Link the whole directry instead of linking every file in this dir.
+# i.e. ~/.tmux  --> ~/Config/home/.tmux
+declare -A dir
+dir[.tmux]=1
+dir[.todo]=1
+dir[.config]=1
+dir[Util]=1
+dir[Library/Rime]=1
+dir[.homebrew]=1
+dir[.zprezto]=1
+
+DEPLOY_DRY_RUN=$DEPLOY_DRY_RUN
+if [[ -n "$DEPLOY_DRY_RUN" ]]; then info "!!! Deploy dry run for debugging"; fi
+
+if ! command -v realpath >/dev/null 2>&1; then
+  warning "Can not find `realpath` command, exiting..." && exit 1
+fi
+
+LINK() {
+  if [[ -n "$DEPLOY_DRY_RUN" ]]; then
+    action "DRY: " ln "$LN_OPT" "$PWD/$1" "$2"
+  else
+    ln "$LN_OPT" "$PWD/$1" "$2"
+  fi
+}
+
+REMOVE() {
+  warning "!!! REMOVE $1"
+  if [[ -n "$DEPLOY_DRY_RUN" ]]; then
+    action "DRY: " rm -fdrv "$1"
+  else
+    rm -fdr "$1"
+  fi
+}
+
+MKDIR () {
+  if [[ -n "$DEPLOY_DRY_RUN" ]]; then
+    action "DRY: " mkdir -p "$1"
+  else
+    mkdir -p "$1"
+  fi
 }
 
 do_ssh() {
@@ -45,9 +81,9 @@ do_ssh() {
 }
 
 do_mkdir() {
-  mkdir -p ~/{.history,tmp}
-  mkdir -p ~/.vimtmp/{backup,swap,undo}
-  # mkdir -p ~/Wallpapers ~/.local/opt
+  MKDIR ~/{.history,tmp}
+  MKDIR ~/.vimtmp/{backup,swap,undo}
+  # MKDIR ~/Wallpapers ~/.local/opt
 }
 
 do_git() {
@@ -56,43 +92,39 @@ do_git() {
 }
 
 fix_platform() {
-  # fix prezto
-  # By default, this `✘` special sign casues ugly alignment problem.
+  # fix prezto, by default, this `✘` special sign casues ugly alignment problem.
   sed -i.bak 's/local show_return="✘ "/local show_return="x "/g' \
       ~/.zprezto/modules/prompt/functions/prompt_sorin_setup
 
-  # fix tmux plugin according to os
-  if [[ $(uname -s) == Darwin ]]; then
-    sed -i.bak 's/xdg-open/open/g' \
-      ~/.tmux/plugins/tmux-url-select/tmux-url-select.pl
-  fi
+  if [[ $(uname -s) != Darwin ]]; then return; fi
+
+  # fix tmux-url plugin on osx
+  sed -i.bak 's/xdg-open/open/g' \
+    ~/.tmux/plugins/tmux-url-select/tmux-url-select.pl
+
+  # fix system.update launchd service
+  # (NOTE: may bring some security riskes into the system)
+  sudo touch /etc/sudoers.d/sys-update
+  echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sys-update >/dev/null
 }
 
 launchd_service() {
-  # Serices that will run as user
-  local SERVICE=~/Library/LaunchAgents
-  rm -f /tmp/me@*
-  for srv in $(ls $SERVICE/me@*.plist); do
-    action "Launchd user ($srv)..."
-    launchctl unload -w "$srv"
-    launchctl load -w "$srv"
+  # Services that will run as user
+  local agents=~/Library/LaunchAgents
+  for agent in $(ls $agents/me@*.plist); do
+    agent_name=$(basename $agent)
+    if launchctl list | grep "$agent_name" >/dev/null 2>&1; then
+      continue
+    fi
+    action "Launchd user ($agent)..."
+    launchctl unload -w "$agent"
+    launchctl load -w "$agent"
   done
-  # # Serices that will run as root
-  # local SERVICE=~/Config/mac/Library/LaunchDaemons
-  # local ROOTSRV=/Library/LaunchDaemons
-  # for any in $(ls $SERVICE); do
-  #   sudo ln "$LN_OPT" "$SERVICE/$any" "$ROOTSRV/$any" 
-  # done
-  # for srv in $(ls $ROOTSRV/me@*.plist); do
-  #   action "Launchd root ($srv)..."
-  #   sudo launchctl unload -w "$srv"
-  #   sudo launchctl load -w "$srv"
-  # done
 }
 
 systemd_service() {
   # Load all services for linux
-  info "Service: not implemented" && return 
+  info "Service: not implemented" && return
 }
 
 load_service() {
@@ -113,28 +145,23 @@ check_skip() {
     [[ $ff =~ / ]] || break
     ff=${ff%/*}
   done
-  if [[ -n $skip ]]; then
-    return 0
-  else
-    return 1
-  fi
+  if [[ -n $skip ]]; then return 0; fi
+  return 1
 }
 
 check_link() {
-# Check whether a soft link exists and doesn't point to Config repo
-  local soft="$1"
-  if [[ -L "$soft" ]]; then
-    if command -v realpath 2>&1 >/dev/null; then
-      real=$(realpath "$soft")
-      if ! echo $real | grep "Config" 2>&1 >/dev/null; then
-        warning "RMing $soft..."
-        rm -f "$soft" && return 0
-      else
-        # Already linked before.
-        return 1
-      fi
+  # Check whether a soft link exists and doesn't point to Config repo
+  if [[ -L "$1" ]]; then
+    if ! realpath "$1" >/dev/null 2>&1; then
+      return 0
+    fi
+    real=$(realpath "$1")
+    if ! echo $real | grep "Config" 2>&1 >/dev/null; then
+      REMOVE "$1"
+      return 0
     else
-      warning "Can not find 'realpath' command, exiting..." && exit 1
+      # Already linked before.
+      return 1
     fi
   fi
 }
@@ -144,27 +171,34 @@ deploy () {
   # Link the directory instead of linking every files
   for f in "${!dir[@]}"; do
     g="$target/${f/home\//}"
-    if [[ -e "$g" ]]; then
-      any="$g/$(ls "$g" | tr '\n' ' ' | cut -d ' ' -f 1)"
-      if [[ -n "$any" && -L $any ]]; then
-        warning "Linked $g, rm for Dink"
-        rm -fdr "$g"
+    if [[ -e "$g" && ! -L "$g" ]]; then
+      # If this directory exists and is not a symbolic link
+      while : ; do
+        warning "DLINK REMOVE $g ??? (y)es (s)show (q)uit [y/s/q]"
+        read -rsn 1 option
+        case $option in
+          [y])
+            REMOVE "$g";
+            break;;
+          s)
+            ls -al "$g";
+            continue;;
+          q)
+            exit;;
+          *)
+            # While forever until getting a valid option.
+            continue;;
+        esac
+      done
+    elif [[ -L "$g" ]]; then
+      if diff -q "$target/$f" "$g" >/dev/null 2>&1; then
+        action "identical $g"
+        continue
       fi
     fi
-    if [[ -e "$g" && ! -L "$g" ]]; then
-    # If this file exists and is not a symbolic link
-      action "$g exists"
-      continue
-    elif ! check_link "$g"; then
-    # Check whther we have already linked this before.
-      warning "Dinked $g"
-      continue
-    fi
-    mkdir -p ${g%/*}
+    MKDIR ${g%/*}
     info "Dinking $f"
-    action "Dinking $f"
-    # Otherwise linking to this repo.
-    link home/$f $g
+    LINK home/$f $g
   done
 
   # Loop through all values in this files array
@@ -173,58 +207,43 @@ deploy () {
     # If a file path starts with `home/` prefix.
       if check_skip home; then continue; fi
       g="$target/${f/home\//}"
-
-    elif [[ "$f" =~ ^mac/ ]]; then
-    # If a file path starts with `mac/` prefix.
-      if [[ $(uname -s) != Darwin ]]; then continue; fi
-      if check_skip mac; then continue; fi
-      g="$target/${f/mac\//}"
-
     else
       # Skip other path patterns like etc/foo/bar here.
       continue
     fi
 
-    if ! check_link "$g"; then
-      warning "Linked $g"
-    else 
-      info "Copying $f"
-    fi
+    MKDIR ${g%/*}
 
-    mkdir -p ${g%/*}
-    if ! [[ -L "$g" ]]; then
-      # If this file exists and its not a symbolic link.
-      # Check whether its the same as the file we
-      # about to link to.
-      if [[ -f "$g" || "$f" -ot "$g" ]]; then
-        if diff -q "$f" "$g"; then
-          action "identical $g"
+    # Check whether its the same as the file we about to link to.
+    if [[ -f "$g" || "$f" -ot "$g" ]]; then
+      if diff -q "$f" "$g"; then
+        action "identical $g"
+        continue
+      else
+        diff -u "$g" "$f" | less -FMX
+        while :; do
+          warning "Overwrite $g ?\n(y)es (n)skip (m)vim -d (q)uit [y/n/m/q]"
+          read -rsn 1 option
+          case $option in
+            [ny])
+              break;;
+            m)
+              vim -d "$g" "$f";;
+            q)
+              exit;;
+            *)
+              # While forever until getting a valid option.
+              continue;;
+          esac
+        done
+        if [[ $option == n ]]; then
+          action "skipping $g"
           continue
-        else
-          diff -u "$g" "$f" | less -FMX
-          while :; do
-            warning "Overwrite $g ?\n(y)es (n)skip (m)vim -d (q)uit [y/n/m/q]"
-            read -rsn 1 option
-            case $option in
-              [ny])
-                break;;
-              m)
-                vim -d "$g" "$f";;
-              q)
-                exit;;
-              *)
-                # While forever until getting a valid option.
-                continue;;
-            esac
-          done
-          if [[ $option == n ]]; then
-            action "skipping $g"
-            continue
-          fi
         fi
       fi
-      link "$f" "$g"
     fi
+    info "Linking $f"
+    LINK "$f" "$g"
   done
 }
 
