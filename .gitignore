@@ -6,3 +6,8 @@ __pycache__
 
 # Ignore all npm modules maybe
 **/node_modules/**
+
+# Rime related ignores
+*.bin
+**/Rime/*.userdb
+**/Rime/sync

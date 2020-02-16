@@ -34,7 +34,7 @@ fi
 
 # Aliases & functions {{{1
 # General aliases & functions (partially shared with bash) {{{2
-if [[ -f ~/.alias ]]; then 
+if [[ -f ~/.alias ]]; then
   action "Setup .alias..."
   # unalias -a
   source ~/.alias
@@ -44,7 +44,7 @@ fi
 if [[ -d ~/Util/z.lua ]]; then
   if [[ -n "$(command -v lua)" ]]; then
     action "Setup z.lua..."
-    eval "$($lua ~/Util/z.lua/z.lua --init zsh once)"
+    eval "$(lua ~/Util/z.lua/z.lua --init zsh once)"
   else
     warning "No 'lua' command find when trying to setup z.lua"
   fi
@@ -68,7 +68,7 @@ fi
 # fi
 
 # Setup a local zshrc
-if [[ -s ~/.zshrc.local ]]; then 
+if [[ -s ~/.zshrc.local ]]; then
   action "Setup .zshrc.local..."
   source ~/.zshrc.local
 fi

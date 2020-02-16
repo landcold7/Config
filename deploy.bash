@@ -34,7 +34,7 @@ LN_OPT=-sf
 # Link the whole directry instead of linking every file in this dir.
 # i.e. ~/.tmux  --> ~/Config/home/.tmux
 declare -A dir
-dir[.tmux]=1
+# dir[.tmux]=1
 dir[.todo]=1
 dir[.config]=1
 dir[Util]=1
